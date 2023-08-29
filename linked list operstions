@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Insert at the beginning
+void insertAtBeginning(struct Node** head, int newData) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = newData;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Traversal
+void traverse(struct Node* head) {
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+
+// Deletion from the beginning
+void deleteFromBeginning(struct Node** head) {
+    if (*head == NULL)
+        return;
+    struct Node* temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
+int main() {
+    struct Node* head = NULL;
+    
+    insertAtBeginning(&head, 3);
+    insertAtBeginning(&head, 2);
+    insertAtBeginning(&head, 1);
+
+    printf("Linked list: ");
+    traverse(head);
+
+    deleteFromBeginning(&head);
+    printf("Linked list after deletion: ");
+    traverse(head);
+
+    return 0;
+}
